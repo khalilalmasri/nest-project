@@ -84,7 +84,7 @@ export class ProductsController {
   // Put: PUT /api/products/:id
   @Put('/:id')
   public updateProduct(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: string,
     @Body() body: UpdateProductDto,
   ) {
     const product = this.products.find((p) => p.id === +id);
@@ -98,7 +98,7 @@ export class ProductsController {
   }
 
   @Delete('/:id')
-  public deleteProduct(@Param('id') id: string) {
+  public deleteProduct(@Param('id', ParseIntPipe) id: string) {
     const product = this.products.find((p) => p.id === +id);
     if (!product) {
       throw new NotFoundException("product doesn't exist", {
