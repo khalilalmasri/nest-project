@@ -10,6 +10,7 @@ import {
   Req, // for express way
   Res, // for express way
   ParseIntPipe, // if  string was number => number    if  string was not number  =>error
+  // ValidationPipe,
 
   //  Headers, // for express way
 } from '@nestjs/common';
@@ -52,7 +53,11 @@ export class ProductsController {
 
   // Post: POST /api/products
   @Post()
-  public createProduct(@Body() body: CreateProductDto) {
+  public createProduct(
+    @Body() // new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true })
+    body: CreateProductDto,
+  ) {
+    console.log(body);
     const newProduct: ProductType = {
       id: this.products.length + 1,
       title: body.title,
@@ -85,7 +90,8 @@ export class ProductsController {
   @Put('/:id')
   public updateProduct(
     @Param('id', ParseIntPipe) id: string,
-    @Body() body: UpdateProductDto,
+    @Body() // new ValidationPipe()
+    body: UpdateProductDto,
   ) {
     const product = this.products.find((p) => p.id === +id);
     if (!product) {
