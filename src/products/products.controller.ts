@@ -4,113 +4,48 @@ import {
   Post,
   Body,
   Param,
-  NotFoundException,
   Put,
   Delete, // BadRequestException,UnauthorizedException,ForbiddenException,
-  Req, // for express way
-  Res, // for express way
   ParseIntPipe, // if  string was number => number    if  string was not number  =>error
-  // ValidationPipe,
-
-  //  Headers, // for express way
 } from '@nestjs/common';
-import { Request, Response } from 'express'; // for express way
 import { CreateProductDto } from './dtos/create-product.dto';
 import { UpdateProductDto } from './dtos/update-product.dto';
-type ProductType = { id: number; title: string; price: number };
+import { ProductsService } from './products.service';
 
 @Controller('api/products')
 export class ProductsController {
-  private products: ProductType[] = [
-    { id: 1, title: 'book', price: 10 },
-    { id: 2, title: 'pen', price: 5 },
-    { id: 3, title: 'laptop', price: 2 },
-  ];
-  //Post : POST /api/products/express-way
-  // just for knowledge use in special case
-  @Post('/express-way')
-  public createProductExpressWay(
-    @Req() req: Request,
-    @Res() res: Response,
-    //@Headers() headers: any,
-  ) {
-    const newProduct: ProductType = {
-      id: this.products.length + 1,
-      title: req.body.title,
-      price: req.body.price,
-    };
-    this.products.push(newProduct);
-    //console.log(headers); //
-    //console.log(req.headers); //
-    res.status(201).json(newProduct);
-    // one of special case **************************************
-    // res.cookie('test', 'test', {
-    //   httpOnly: true,
-    //   secure: true,
-    //   maxAge: 100,
-    // });
-  }
+  private productsService: ProductsService = new ProductsService();
 
   // Post: POST /api/products
   @Post()
-  public createProduct(
-    @Body() // new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true })
-    body: CreateProductDto,
-  ) {
-    console.log(body);
-    const newProduct: ProductType = {
-      id: this.products.length + 1,
-      title: body.title,
-      price: body.price,
-    };
-    this.products.push(newProduct);
-    return newProduct;
+  public createProduct(@Body() body: CreateProductDto) {
+    return this.productsService.createProduct(body);
   }
 
   // Get: GET /api/products
   @Get()
   public getAllProducts() {
-    return this.products;
+    return this.productsService.getAllProducts();
   }
 
   // Get: GET /api/products/:id
   @Get('/:id')
   public getSingleProduct(@Param('id', ParseIntPipe) id: number) {
-    console.log(typeof id);
-    const product = this.products.find((p) => p.id === id);
-    if (!product) {
-      throw new NotFoundException("product doesn't exist", {
-        description: 'Product not found', // optional
-      });
-    }
-    return product;
+    return this.productsService.getSingleProduct(id);
   }
 
   // Put: PUT /api/products/:id
   @Put('/:id')
   public updateProduct(
     @Param('id', ParseIntPipe) id: string,
-    @Body() // new ValidationPipe()
+    @Body()
     body: UpdateProductDto,
   ) {
-    const product = this.products.find((p) => p.id === +id);
-    if (!product) {
-      throw new NotFoundException("product doesn't exist", {
-        description: 'Product not found', // optional
-      });
-    }
-    console.log(body);
-    return { message: 'update success' + id };
+    return this.productsService.updateProduct(id, body);
   }
 
   @Delete('/:id')
   public deleteProduct(@Param('id', ParseIntPipe) id: string) {
-    const product = this.products.find((p) => p.id === +id);
-    if (!product) {
-      throw new NotFoundException("product doesn't exist", {
-        description: 'Product not found', // optional
-      });
-    }
-    return { message: 'delete success' + id };
+    return this.productsService.deleteProduct(id);
   }
 }
