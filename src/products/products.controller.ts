@@ -9,6 +9,8 @@ import {
   Delete, // BadRequestException,UnauthorizedException,ForbiddenException,
   Req, // for express way
   Res, // for express way
+  ParseIntPipe, // if  string was number => number    if  string was not number  =>error
+
   //  Headers, // for express way
 } from '@nestjs/common';
 import { Request, Response } from 'express'; // for express way
@@ -68,8 +70,9 @@ export class ProductsController {
 
   // Get: GET /api/products/:id
   @Get('/:id')
-  public getSingleProduct(@Param('id') id: string) {
-    const product = this.products.find((p) => p.id === +id);
+  public getSingleProduct(@Param('id', ParseIntPipe) id: number) {
+    console.log(typeof id);
+    const product = this.products.find((p) => p.id === id);
     if (!product) {
       throw new NotFoundException("product doesn't exist", {
         description: 'Product not found', // optional
