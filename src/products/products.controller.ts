@@ -14,7 +14,13 @@ import { ProductsService } from './products.service';
 
 @Controller('api/products')
 export class ProductsController {
-  private productsService: ProductsService = new ProductsService();
+  // -------------------- Third step
+  // private productsService: ProductsService;
+  // constructor(productsService: ProductsService) {
+  //   this.productsService = productsService;
+  // }
+  // --------or--------
+  constructor(private readonly productsService: ProductsService) {}
 
   // Post: POST /api/products
   @Post()
