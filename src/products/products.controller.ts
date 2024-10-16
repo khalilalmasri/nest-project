@@ -7,7 +7,11 @@ import {
   NotFoundException,
   Put,
   Delete, // BadRequestException,UnauthorizedException,ForbiddenException,
+  Req, // for express way
+  Res, // for express way
+  //  Headers, // for express way
 } from '@nestjs/common';
+import { Request, Response } from 'express'; // for express way
 import { CreateProductDto } from './dtos/create-product.dto';
 import { UpdateProductDto } from './dtos/update-product.dto';
 type ProductType = { id: number; title: string; price: number };
@@ -19,6 +23,30 @@ export class ProductsController {
     { id: 2, title: 'pen', price: 5 },
     { id: 3, title: 'laptop', price: 2 },
   ];
+  //Post : POST /api/products/express-way
+  // just for knowledge use in special case
+  @Post('/express-way')
+  public createProductExpressWay(
+    @Req() req: Request,
+    @Res() res: Response,
+    //@Headers() headers: any,
+  ) {
+    const newProduct: ProductType = {
+      id: this.products.length + 1,
+      title: req.body.title,
+      price: req.body.price,
+    };
+    this.products.push(newProduct);
+    //console.log(headers); //
+    //console.log(req.headers); //
+    res.status(201).json(newProduct);
+    // one of special case **************************************
+    // res.cookie('test', 'test', {
+    //   httpOnly: true,
+    //   secure: true,
+    //   maxAge: 100,
+    // });
+  }
 
   // Post: POST /api/products
   @Post()
