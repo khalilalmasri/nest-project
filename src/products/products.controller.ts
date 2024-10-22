@@ -11,16 +11,14 @@ import {
 import { CreateProductDto } from './dtos/create-product.dto';
 import { UpdateProductDto } from './dtos/update-product.dto';
 import { ProductsService } from './products.service';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('api/products')
 export class ProductsController {
-  // -------------------- Third step
-  // private productsService: ProductsService;
-  // constructor(productsService: ProductsService) {
-  //   this.productsService = productsService;
-  // }
-  // --------or--------
-  constructor(private readonly productsService: ProductsService) {}
+  constructor(
+    private readonly productsService: ProductsService,
+    private readonly config: ConfigService, // example of config
+  ) {}
 
   // Post: POST /api/products
   @Post()
@@ -31,6 +29,11 @@ export class ProductsController {
   // Get: GET /api/products
   @Get()
   public getAllProducts() {
+    //example of config
+    const sample = this.config.get<string>('SAMPLE'); // best practice in controller
+    // or
+    const sample1 = process.env.SAMPLE; // not best practice in controller
+    console.log({ sample, sample1 });
     return this.productsService.getAllProducts();
   }
 
