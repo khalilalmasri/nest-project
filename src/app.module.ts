@@ -5,6 +5,8 @@ import { ReviewsModule } from './reviews/reviews.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Product } from './products/products.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { User } from './users/user.entity';
+import { Review } from './reviews/reviews.entity';
 @Module({
   imports: [
     UsersModule,
@@ -15,6 +17,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       useFactory: (config: ConfigService) => {
         return {
           type: 'postgres',
+          // type: 'mysql',
           host: 'localhost',
           port: config.get<number>('DB_PORT'),
           username: config.get<string>('DB_USERNAME'),
@@ -22,7 +25,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
           database: config.get<string>('DB_DATABASE'),
           autoLoadEntities: true,
           synchronize: process.env.NODE_ENV !== 'development', // only for development mode
-          entities: [Product],
+          entities: [Product, User, Review],
         };
       },
     }),
