@@ -4,7 +4,7 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-  OneToMany,
+  // OneToMany,
 } from 'typeorm';
 import { CURRENT_TIMESTAMP } from '../utils/constants';
 import { Product } from 'src/products/products.entity';
@@ -41,9 +41,9 @@ export class User {
   })
   updatedAt: Date;
 
-  @OneToMany(() => Product, (product) => product.user)
+  // @OneToMany(() => Product, (product) => product.user)
   products: Product[];
 
-  @OneToMany(() => Review, (review) => review.user)
+  // @OneToMany(() => Review, (review) => review.user)
   reviews: Review[];
 }

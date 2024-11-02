@@ -4,7 +4,7 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-  ManyToOne,
+  // ManyToOne,
 } from 'typeorm';
 import { Product } from 'src/products/products.entity';
 import { CURRENT_TIMESTAMP } from '../utils/constants';
@@ -30,9 +30,9 @@ export class Review {
   })
   updatedAt: Date;
 
-  @ManyToOne(() => Product, (product) => product.reviews)
+  // @ManyToOne(() => Product, (product) => product.reviews)
   product: Product;
 
-  @ManyToOne(() => User, (user) => user.reviews)
+  // @ManyToOne(() => User, (user) => user.reviews)
   user: User;
 }
