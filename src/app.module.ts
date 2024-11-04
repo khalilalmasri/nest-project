@@ -17,7 +17,6 @@ import { Review } from './reviews/reviews.entity';
       useFactory: (config: ConfigService) => {
         return {
           type: 'postgres',
-          // type: 'mysql',
           host: 'localhost',
           port: config.get<number>('DB_PORT'),
           username: config.get<string>('DB_USERNAME'),

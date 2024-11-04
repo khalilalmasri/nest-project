@@ -1,15 +1,12 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { ReviewsService } from 'src/reviews/reviews.service';
+import { RegisterDto } from './Dtos/register.dto';
 
-@Controller()
+@Controller('api/users')
 export class UsersController {
-  constructor(
-    private readonly usersService: UsersService,
-    private readonly reviewsService: ReviewsService,
-  ) {}
-  @Get('/api/users')
-  public getAllProducts() {
-    return this.usersService.getAllProducts();
+  constructor(private readonly usersService: UsersService) {}
+  @Post('auth/register')
+  public register(@Body() body: RegisterDto) {
+    return this.usersService.register(body);
   }
 }
