@@ -5,12 +5,15 @@ import { User } from './user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcryptjs';
 import { LoginDto } from './Dtos/login.dto';
+import { JwtService } from '@nestjs/jwt';
+import { JWTpayloadType, AccesTokenType } from 'src/utils/types';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
+    private readonly jwtService: JwtService,
   ) {}
 
   /**
@@ -18,7 +21,7 @@ export class UsersService {
    * @param registerDto data for creating new user
    * @returns JWT (access token)
    */
-  public async register(registerDto: RegisterDto) {
+  public async register(registerDto: RegisterDto): Promise<AccesTokenType> {
     const { email, password, username } = registerDto;
     const userFromDB = await this.usersRepository.findOne({
       where: { email },
@@ -33,8 +36,14 @@ export class UsersService {
       username,
     });
     newUser = await this.usersRepository.save(newUser);
-    // todo -> generate jwt token
-    return newUser;
+
+    const payload: JWTpayloadType = {
+      id: newUser.id,
+      userType: newUser.usertype,
+    };
+    const accessToken = await this.generateJwtToken(payload);
+
+    return { accessToken };
   }
 
   /**
@@ -43,7 +52,7 @@ export class UsersService {
    * @returns user object  --> jwt token
    * @throws BadRequestException if user not found or invalid username or password
    */
-  public async login(loginDto: LoginDto) {
+  public async login(loginDto: LoginDto): Promise<AccesTokenType> {
     const { email, password } = loginDto;
     const userFromDB = await this.usersRepository.findOne({
       where: { email },
@@ -57,7 +66,21 @@ export class UsersService {
       throw new BadRequestException(
         'wrong password || invalid username or password',
       );
-    // to do -> generate jwt token
-    return userFromDB;
+
+    const accessToken = await this.generateJwtToken({
+      id: userFromDB.id,
+      userType: userFromDB.usertype,
+    });
+
+    return { accessToken };
+  }
+
+  /**
+   * generate jwt token
+   * @param payload data for generating jwt token
+   * @returns jwt token
+   */
+  private generateJwtToken(payload: JWTpayloadType): Promise<string> {
+    return this.jwtService.signAsync(payload);
   }
 }
