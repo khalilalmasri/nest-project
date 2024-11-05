@@ -16,3 +16,8 @@ Content-Type: application/json
     "email": "test1@gmail.com",
     "password": "123456789"
 }
+
+### get current user
+GET  http://localhost:5000/api/users/current-user
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlclR5cGUiOiJub3JtYWxfdXNlciIsImlhdCI6MTczMDgxNjY2NywiZXhwIjoxNzU2NzM2NjY3fQ.Pp4YzjBP_d-D0SxHclh4l1gyD1YxVhCrzDc7Ri2RU0g

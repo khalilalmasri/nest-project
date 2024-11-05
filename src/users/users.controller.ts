@@ -1,4 +1,12 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Headers,
+  Get,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { RegisterDto } from './Dtos/register.dto';
 import { LoginDto } from './Dtos/login.dto';
@@ -15,5 +23,11 @@ export class UsersController {
   @HttpCode(HttpStatus.OK) // to set status code == 200 by default is 201
   public login(@Body() body: LoginDto) {
     return this.usersService.login(body);
+  }
+
+  //get : /api/users/current-user
+  @Get('current-user')
+  public getCurrentUser(@Headers() headers: any) {
+    return this.usersService.getCurrentUser(headers.authorization);
   }
 }
