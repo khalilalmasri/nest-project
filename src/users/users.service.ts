@@ -7,7 +7,6 @@ import * as bcrypt from 'bcryptjs';
 import { LoginDto } from './Dtos/login.dto';
 import { JwtService } from '@nestjs/jwt';
 import { JWTpayloadType, AccesTokenType } from 'src/utils/types';
-import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class UsersService {
@@ -15,7 +14,6 @@ export class UsersService {
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
     private readonly jwtService: JwtService,
-    private readonly config: ConfigService,
   ) {}
 
   /**
@@ -85,13 +83,10 @@ export class UsersService {
    * @throws BadRequestException if user not found
    */
   /******  2031beeb-912c-4974-ab4f-388317645d09  *******/
-  public async getCurrentUser(bearerToken: string) {
+  public async getCurrentUser(id: number) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [type, token] = bearerToken.split(' ');
-    const payload = await this.jwtService.verifyAsync(token, {
-      secret: this.config.get<string>('JWT_SECRET'),
-    });
-    const user = this.usersRepository.findOne({ where: { id: payload.id } });
+
+    const user = this.usersRepository.findOne({ where: { id } });
     if (!user) throw new BadRequestException('user not found');
     return user;
   }

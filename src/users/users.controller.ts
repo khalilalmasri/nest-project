@@ -4,12 +4,15 @@ import {
   HttpCode,
   HttpStatus,
   Post,
-  Headers,
   Get,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { RegisterDto } from './Dtos/register.dto';
 import { LoginDto } from './Dtos/login.dto';
+import { AuthGuard } from './Guards/auth.guard';
+import { CurrentUser } from './decorator/current-user.decorator';
+import { JWTpayloadType } from 'src/utils/types';
 
 @Controller('api/users')
 export class UsersController {
@@ -27,7 +30,8 @@ export class UsersController {
 
   //get : /api/users/current-user
   @Get('current-user')
-  public getCurrentUser(@Headers() headers: any) {
-    return this.usersService.getCurrentUser(headers.authorization);
+  @UseGuards(AuthGuard)
+  public getCurrentUser(@CurrentUser() payload: JWTpayloadType) {
+    return this.usersService.getCurrentUser(payload.id);
   }
 }
