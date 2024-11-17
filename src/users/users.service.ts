@@ -83,12 +83,19 @@ export class UsersService {
    * @throws BadRequestException if user not found
    */
   /******  2031beeb-912c-4974-ab4f-388317645d09  *******/
-  public async getCurrentUser(id: number) {
+  public async getCurrentUser(id: number): Promise<User> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
     const user = this.usersRepository.findOne({ where: { id } });
     if (!user) throw new BadRequestException('user not found');
     return user;
+  }
+  /**
+   * get all users from db
+   * @returns collections of useres
+   */
+  public getall(): Promise<User[]> {
+    return this.usersRepository.find();
   }
 
   /**

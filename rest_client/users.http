@@ -13,7 +13,7 @@ POST  http://localhost:5000/api/users/auth/login
 Content-Type: application/json
 
 {
-    "email": "test1@gmail.com",
+    "email": "test2@gmail.com",
     "password": "123456789"
 }
 
@@ -21,3 +21,15 @@ Content-Type: application/json
 GET  http://localhost:5000/api/users/current-user
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlclR5cGUiOiJub3JtYWxfdXNlciIsImlhdCI6MTczMDgxNjY2NywiZXhwIjoxNzU2NzM2NjY3fQ.Pp4YzjBP_d-D0SxHclh4l1gyD1YxVhCrzDc7Ri2RU0g
+
+
+### get all users with admin user
+GET  http://localhost:5000/api/users
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlclR5cGUiOiJub3JtYWxfdXNlciIsImlhdCI6MTczMDgxNjY2NywiZXhwIjoxNzU2NzM2NjY3fQ.Pp4YzjBP_d-D0SxHclh4l1gyD1YxVhCrzDc7Ri2RU0g
+
+
+### get all users with Normal user
+GET  http://localhost:5000/api/users
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlclR5cGUiOiJub3JtYWxfdXNlciIsImlhdCI6MTczMTgzNjg2MiwiZXhwIjoxNzU3NzU2ODYyfQ.J4Cy5F7BKsHlhANZULqWGcd6ZEtVnl0VGgn4dagQQKU

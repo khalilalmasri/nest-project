@@ -13,6 +13,9 @@ import { LoginDto } from './Dtos/login.dto';
 import { AuthGuard } from './Guards/auth.guard';
 import { CurrentUser } from './decorator/current-user.decorator';
 import { JWTpayloadType } from 'src/utils/types';
+import { Roles } from './decorator/user-role.decorator';
+import { UserType } from 'src/utils/enums';
+import { AuthRolesGuard } from './Guards/auth.roles.guard';
 
 @Controller('api/users')
 export class UsersController {
@@ -33,5 +36,13 @@ export class UsersController {
   @UseGuards(AuthGuard)
   public getCurrentUser(@CurrentUser() payload: JWTpayloadType) {
     return this.usersService.getCurrentUser(payload.id);
+  }
+
+  //get : /api/users
+  @Get()
+  @Roles(UserType.ADMIN) // custom decorator to make roles just for admin delete  UserType.NORMAL_USER
+  @UseGuards(AuthRolesGuard)
+  public getAllUsers() {
+    return this.usersService.getall();
   }
 }
