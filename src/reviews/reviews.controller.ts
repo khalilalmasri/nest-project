@@ -1,13 +1,13 @@
 import { Controller, Get } from '@nestjs/common';
+import { ReviewsService } from './reviews.service';
 
 @Controller()
 export class ReviewsController {
+  constructor(private readonly reviewsService: ReviewsService) {}
+
+  // @Get('/api/reviews')
   @Get('/api/reviews')
   public getAllProducts() {
-    return [
-      { id: 1, comment: 'book', rating: 3 },
-      { id: 2, comment: 'pen', rating: 5 },
-      { id: 3, comment: 'laptop', rating: 2 },
-    ];
+    return this.reviewsService.getAllProducts();
   }
 }

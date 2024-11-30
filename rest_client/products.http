@@ -1,0 +1,43 @@
+###get all products
+GET http://localhost:5000/api/products
+Content-Type: application/json
+
+
+
+### get  product
+GET http://localhost:5000/api/products/6
+
+### create new  product
+POST http://localhost:5000/api/products
+Content-Type: application/json
+
+{
+    "title":"testitem",
+    "description":"about test",
+    "price":40
+}
+
+### create product with express
+POST http://localhost:5000/api/products/express-way
+Content-Type: application/json
+
+{
+    "title":"Ipad",
+    "description":"about Ipad",
+    "price":50
+}
+
+### update  product
+PUT http://localhost:5000/api/products/4
+Content-Type: application/json
+
+{
+    "title":"Ipad",
+    "description":"about Ipad",
+    "price":50
+}
+
+### delete  product
+DELETE http://localhost:5000/api/products/2
+Content-Type: application/json
+
