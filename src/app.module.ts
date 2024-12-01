@@ -1,12 +1,13 @@
-import { Module } from '@nestjs/common';
-import { UsersModule } from './users/users.module';
-import { ProductsModule } from './products/products.module';
-import { ReviewsModule } from './reviews/reviews.module';
+import { ClassSerializerInterceptor, Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Product } from './products/products.entity';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { User } from './users/user.entity';
+import { ProductsModule } from './products/products.module';
 import { Review } from './reviews/reviews.entity';
+import { ReviewsModule } from './reviews/reviews.module';
+import { User } from './users/user.entity';
+import { UsersModule } from './users/users.module';
 @Module({
   imports: [
     UsersModule,
@@ -33,6 +34,9 @@ import { Review } from './reviews/reviews.entity';
       envFilePath: `.env.${process.env.NODE_ENV}`,
       // envFilePath: `.env.development`,
     }),
+  ],
+  providers: [
+    { provide: APP_INTERCEPTOR, useClass: ClassSerializerInterceptor }, //to make sure we don't return password in all project
   ],
 })
 export class AppModule {}

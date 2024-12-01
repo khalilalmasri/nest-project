@@ -1,26 +1,27 @@
 import {
   Body,
   Controller,
+  Delete,
+  Get,
   HttpCode,
   HttpStatus,
-  Post,
-  Get,
-  UseGuards,
-  Put,
-  Delete,
   Param,
   ParseIntPipe,
+  Post,
+  Put,
+  UseGuards,
 } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { RegisterDto } from './Dtos/register.dto';
-import { LoginDto } from './Dtos/login.dto';
-import { AuthGuard } from './Guards/auth.guard';
-import { CurrentUser } from './decorator/current-user.decorator';
-import { JWTpayloadType } from 'src/utils/types';
-import { Roles } from './decorator/user-role.decorator';
 import { UserType } from 'src/utils/enums';
-import { AuthRolesGuard } from './Guards/auth.roles.guard';
+// import { LoggerInterceptor } from 'src/utils/intereceptors/logger.interceptor';
+import { JWTpayloadType } from 'src/utils/types';
+import { LoginDto } from './Dtos/login.dto';
+import { RegisterDto } from './Dtos/register.dto';
 import { UpdateUserDto } from './Dtos/update-user.dto';
+import { AuthGuard } from './Guards/auth.guard';
+import { AuthRolesGuard } from './Guards/auth.roles.guard';
+import { CurrentUser } from './decorator/current-user.decorator';
+import { Roles } from './decorator/user-role.decorator';
+import { UsersService } from './users.service';
 
 @Controller('api/users')
 export class UsersController {
@@ -39,7 +40,10 @@ export class UsersController {
   //get : /api/users/current-user
   @Get('current-user')
   @UseGuards(AuthGuard)
+  // @UseInterceptors(LoggerInterceptor)
+  // @UseInterceptors(ClassSerializerInterceptor)  // replace in provider app.module
   public getCurrentUser(@CurrentUser() payload: JWTpayloadType) {
+    console.log('get current user route');
     return this.usersService.getCurrentUser(payload.id);
   }
 
@@ -47,6 +51,7 @@ export class UsersController {
   @Get()
   @Roles(UserType.ADMIN) // custom decorator to make roles just for admin delete  UserType.NORMAL_USER
   @UseGuards(AuthRolesGuard)
+  // @UseInterceptors(ClassSerializerInterceptor)  // replace in provider app.module
   public getAllUsers() {
     return this.usersService.getall();
   }
