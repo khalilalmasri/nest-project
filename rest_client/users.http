@@ -3,9 +3,9 @@ POST  http://localhost:5000/api/users/auth/register
 Content-Type: application/json
 
 {
-    "email": "test2@gmail.com",
+    "email": "osama@gmail.com",
     "password": "123456789",
-    "username": "khalil" 
+    "username": "osama" 
 }
 
 ###  Login
@@ -20,13 +20,13 @@ Content-Type: application/json
 ### get current user
 GET  http://localhost:5000/api/users/current-user
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlclR5cGUiOiJhZG1pbiIsImlhdCI6MTczMzA2MzEzNCwiZXhwIjoxNzMzMTQ5NTM0fQ.T9VHPN0VgyOmBg_qFgasrI407lkiSX1osdTlBKLvH-Q
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlclR5cGUiOiJhZG1pbiIsImlhdCI6MTczMzMzNjk2MiwiZXhwIjoxNzMzNDIzMzYyfQ.PbsaQOIBcWmq0Dt_jVs5kDzKRyx02MIIBBSth4eZH10
 
 
 ### get all users with admin user
 GET  http://localhost:5000/api/users
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlclR5cGUiOiJhZG1pbiIsImlhdCI6MTczMzA2MzEzNCwiZXhwIjoxNzMzMTQ5NTM0fQ.T9VHPN0VgyOmBg_qFgasrI407lkiSX1osdTlBKLvH-Q
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlclR5cGUiOiJhZG1pbiIsImlhdCI6MTczMzMzNjk2MiwiZXhwIjoxNzMzNDIzMzYyfQ.PbsaQOIBcWmq0Dt_jVs5kDzKRyx02MIIBBSth4eZH10
 
 ### get all users with Normal user
 GET  http://localhost:5000/api/users
