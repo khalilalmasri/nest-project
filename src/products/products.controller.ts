@@ -1,17 +1,23 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Param,
+  Controller,
+  Delete,
+  Get,
+  Param, // BadRequestException,UnauthorizedException,ForbiddenException,
+  ParseIntPipe,
+  Post,
   Put,
-  Delete, // BadRequestException,UnauthorizedException,ForbiddenException,
-  ParseIntPipe, // if  string was number => number    if  string was not number  =>error
+  UseGuards, // if  string was number => number    if  string was not number  =>error
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { AuthRolesGuard } from 'src/users/Guards/auth.roles.guard';
+import { CurrentUser } from 'src/users/decorator/current-user.decorator';
+import { Roles } from 'src/users/decorator/user-role.decorator';
+import { UserType } from 'src/utils/enums';
+import { JWTpayloadType } from 'src/utils/types';
 import { CreateProductDto } from './dtos/create-product.dto';
 import { UpdateProductDto } from './dtos/update-product.dto';
 import { ProductsService } from './products.service';
-import { ConfigService } from '@nestjs/config';
 
 @Controller('api/products')
 export class ProductsController {
@@ -22,8 +28,13 @@ export class ProductsController {
 
   // Post: POST /api/products
   @Post()
-  public createProduct(@Body() body: CreateProductDto) {
-    return this.productsService.createProduct(body);
+  @UseGuards(AuthRolesGuard)
+  @Roles(UserType.ADMIN)
+  public createProduct(
+    @Body() body: CreateProductDto,
+    @CurrentUser() payload: JWTpayloadType,
+  ) {
+    return this.productsService.createProduct(body, payload.id);
   }
 
   // Get: GET /api/products
@@ -45,6 +56,8 @@ export class ProductsController {
 
   // Put: PUT /api/products/:id
   @Put('/:id')
+  @UseGuards(AuthRolesGuard)
+  @Roles(UserType.ADMIN)
   public updateProduct(
     @Param('id', ParseIntPipe) id: number,
     @Body()
@@ -54,6 +67,8 @@ export class ProductsController {
   }
 
   @Delete('/:id')
+  @UseGuards(AuthRolesGuard)
+  @Roles(UserType.ADMIN)
   public deleteProduct(@Param('id', ParseIntPipe) id: number) {
     return this.productsService.deleteProduct(id);
   }

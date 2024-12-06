@@ -1,12 +1,12 @@
 import {
-  IsString,
-  IsNumber,
   IsNotEmpty,
-  Min,
-  Max,
-  MinLength,
-  MaxLength,
+  IsNumber,
+  IsString,
   Length,
+  Max,
+  MaxLength,
+  Min,
+  MinLength,
 } from 'class-validator';
 
 export class CreateProductDto {

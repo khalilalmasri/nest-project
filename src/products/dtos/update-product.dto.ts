@@ -1,11 +1,11 @@
 import {
-  IsString,
-  IsNumber,
   IsNotEmpty,
-  Min,
-  Max,
-  Length,
+  IsNumber,
   IsOptional,
+  IsString,
+  Length,
+  Max,
+  Min,
 } from 'class-validator';
 export class UpdateProductDto {
   @IsString()

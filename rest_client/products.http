@@ -5,16 +5,17 @@ Content-Type: application/json
 
 
 ### get  product
-GET http://localhost:5000/api/products/2
+GET http://localhost:5000/api/products/3
 
 ### create new  product
 POST http://localhost:5000/api/products
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlclR5cGUiOiJhZG1pbiIsImlhdCI6MTczMzQ5MDU3OCwiZXhwIjoxNzMzNTc2OTc4fQ.wUowGxOozh6Lj6UIy8M4_yvFBZH8hSbY8QnjMypONXc
 
 {
-    "title":"testitem",
-    "description":"about test",
-    "price":40
+    "title":"tap",
+    "description":"tap test",
+    "price":50
 }
 
 ### create product with express
@@ -28,16 +29,19 @@ Content-Type: application/json
 }
 
 ### update  product
-PUT http://localhost:5000/api/products/4
+PUT http://localhost:5000/api/products/3
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlclR5cGUiOiJhZG1pbiIsImlhdCI6MTczMzQ5MDU3OCwiZXhwIjoxNzMzNTc2OTc4fQ.wUowGxOozh6Lj6UIy8M4_yvFBZH8hSbY8QnjMypONXc
 
 {
     "title":"Ipad",
     "description":"about Ipad",
-    "price":50
+    "price":80
+
 }
 
 ### delete  product
-DELETE http://localhost:5000/api/products/2
+DELETE http://localhost:5000/api/products/4
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlclR5cGUiOiJhZG1pbiIsImlhdCI6MTczMzQ5MDU3OCwiZXhwIjoxNzMzNTc2OTc4fQ.wUowGxOozh6Lj6UIy8M4_yvFBZH8hSbY8QnjMypONXc
 
