@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  Query,
   UseGuards, // if  string was number => number    if  string was not number  =>error
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -39,13 +40,17 @@ export class ProductsController {
 
   // Get: GET /api/products
   @Get()
-  public getAllProducts() {
+  public getAllProducts(
+    @Query('title') title: string,
+    @Query('minPrice') minPrice: string,
+    @Query('maxPrice') maxPrice: string,
+  ) {
     //example of config
     const sample = this.config.get<string>('SAMPLE'); // best practice in controller
     // or
     const sample1 = process.env.SAMPLE; // not best practice in controller
     console.log({ sample, sample1 });
-    return this.productsService.getAllProducts();
+    return this.productsService.getAllProducts(title, minPrice, maxPrice);
   }
 
   // Get: GET /api/products/:id
