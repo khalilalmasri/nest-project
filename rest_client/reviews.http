@@ -1,3 +1,10 @@
-###  Get all reviews
-GET http://localhost:5000/api/reviews
 
+###  Create a new review
+POST http://localhost:5000/api/reviews/6
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlclR5cGUiOiJub3JtYWxfdXNlciIsImlhdCI6MTczNDI3NjE3OCwiZXhwIjoxNzM0MzYyNTc4fQ.8L7PHB_sykVqcerTZZ0liXh70QWidyyHC3Lp0BOkBKw
+
+{
+   "rating": 4,
+   "comment": "good product"
+}
