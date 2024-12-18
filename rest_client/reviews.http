@@ -8,3 +8,25 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlclR5c
    "rating": 4,
    "comment": "good product"
 }
+
+###  Get all reviews
+GET http://localhost:5000/api/reviews
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlclR5cGUiOiJub3JtYWxfdXNlciIsImlhdCI6MTczNDUyNjkyNiwiZXhwIjoxNzM0NjEzMzI2fQ.le4GySWun_D92KRw4NvonCnoVp1JJJk3UvCygkxGK4Q
+
+###  Create a new review
+POST http://localhost:5000/api/reviews/5
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlclR5cGUiOiJub3JtYWxfdXNlciIsImlhdCI6MTczNDUyNjkyNiwiZXhwIjoxNzM0NjEzMzI2fQ.le4GySWun_D92KRw4NvonCnoVp1JJJk3UvCygkxGK4Q
+
+{
+   "rating": 4,
+   "comment": "test product"
+}
+
+### delete a review
+
+DELETE http://localhost:5000/api/reviews/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlclR5cGUiOiJub3JtYWxfdXNlciIsImlhdCI6MTczNDUyNjkyNiwiZXhwIjoxNzM0NjEzMzI2fQ.le4GySWun_D92KRw4NvonCnoVp1JJJk3UvCygkxGK4Q
+

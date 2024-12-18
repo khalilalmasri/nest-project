@@ -1,14 +1,14 @@
+import { Product } from 'src/products/products.entity';
+import { User } from 'src/users/user.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-  ManyToOne,
 } from 'typeorm';
-import { Product } from 'src/products/products.entity';
 import { CURRENT_TIMESTAMP } from '../utils/constants';
-import { User } from 'src/users/user.entity';
 @Entity({ name: 'reviews' })
 export class Review {
   @PrimaryGeneratedColumn()
@@ -33,6 +33,6 @@ export class Review {
   @ManyToOne(() => Product, (product) => product.reviews)
   product: Product;
 
-  @ManyToOne(() => User, (user) => user.reviews)
+  @ManyToOne(() => User, (user) => user.reviews, { eager: true })
   user: User;
 }
