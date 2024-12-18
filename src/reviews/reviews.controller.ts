@@ -6,6 +6,7 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { AuthRolesGuard } from 'src/users/Guards/auth.roles.guard';
@@ -35,8 +36,11 @@ export class ReviewsController {
   @Get()
   @UseGuards(AuthRolesGuard)
   @Roles(UserType.ADMIN, UserType.NORMAL_USER)
-  public getAllReviews() {
-    return this.reviewsService.getAllReviews();
+  public getAllReviews(
+    @Query('pageNumber', ParseIntPipe) pageNumber: number, //ParseIntPipe => if  string was number => number    if  string was not number  =>error
+    @Query('reviewsPerPage', ParseIntPipe) reviewsPerPage: number,
+  ) {
+    return this.reviewsService.getAllReviews(pageNumber, reviewsPerPage);
   }
   // @Post('/api/reviews/:id')
   @Post(':id')
