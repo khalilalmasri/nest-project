@@ -6,12 +6,14 @@ import { Product } from './products/products.entity';
 import { ProductsModule } from './products/products.module';
 import { Review } from './reviews/reviews.entity';
 import { ReviewsModule } from './reviews/reviews.module';
+import { UploadsModule } from './uploads/uploads.moduls';
 import { User } from './users/user.entity';
 import { UsersModule } from './users/users.module';
 @Module({
   imports: [
     UsersModule,
     ProductsModule,
+    UploadsModule,
     ReviewsModule,
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
